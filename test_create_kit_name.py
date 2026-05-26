@@ -12,7 +12,9 @@ def positive_assert(name):
 
 def negative_assert_code_400(name):
     kit_body = sender_stand_request.get_kit_body(name)
+
     token = sender_stand_request.get_new_user_token()
+
     response = sender_stand_request.post_new_client_kit(kit_body, token)
 
     assert response.status_code == 400
@@ -49,8 +51,14 @@ def test_create_kit_numbers():
 
 
 def test_create_kit_no_name():
-    negative_assert_code_400("")
+    kit_body = {}
+
+    token = sender_stand_request.get_new_user_token()
+
+    response = sender_stand_request.post_new_client_kit(kit_body, token)
+
+    assert response.status_code == 400
 
 
-def test_create_kit_number_type():
+def test_create_kit_num():
     negative_assert_code_400(123)
